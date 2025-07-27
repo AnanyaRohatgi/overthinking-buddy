@@ -6,9 +6,18 @@ import time
 import sqlite3
 from utils.style_utils import inject_global_styles
 inject_global_styles()
+import nltk
+from textblob import download_corpora
+
+try:
+    download_corpora.download_all()
+except:
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
+    nltk.download('brown')
 
 def initialize_database():
-    conn = sqlite3.connect("user_journal.db")  # Use single database
+    conn = sqlite3.connect("user_journal.db")  
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS journal (
